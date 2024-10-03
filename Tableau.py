@@ -1,6 +1,5 @@
-
 class Tableau:
-    valeurs = [[]] # valeurs[x][y], x = > et y = v
+    valeurs = [] # valeurs[x][y], x = > et y = v
     colonnes = []
     lignes = []
     nom = ""
@@ -11,7 +10,12 @@ class Tableau:
     def ajouterColonne(self,nom : str):
         if type(nom) != str:
             raise TypeError("Nom doit être de type str.")
-        self.valeurs.append( [] * len(self.valeurs[0]) )
+        
+        if len(self.valeurs) > 0:
+            self.valeurs.append( [] * len(self.valeurs[0]) )
+        else:
+            self.valeurs.append([])
+        
         self.colonnes.append(nom)
     
     def ajouterLigne(self,nom : str):
@@ -21,26 +25,26 @@ class Tableau:
             self.valeurs[i].append(0)
         self.lignes.append(nom)
 
-    def retirerColonne(self, indexe):
+    def retirerColonneI(self, indexe : int):
         if type(indexe) != int:
             raise TypeError("Indexe doit être de type int.")
         del self.valeurs[indexe]
-        del self.lignes[indexe]
+        del self.colonnes[indexe]
     
-    def retirerLigne(self, indexe):
+    def retirerLigneI(self, indexe : int):
         if type(indexe) != int:
             raise TypeError("Indexe doit être de type int.")
         for i in range(len(self.valeurs[0])):
             del self.valeurs[i][indexe]
         del self.lignes[indexe]
 
-    def retirerColonne(self, nom):
+    def retirerColonneN(self, nom : str):
         if type(nom) != str:
             raise TypeError("Nom doit être de type str.")
         indexe = self.colonnes.index(nom)
         self.retirerLigne(indexe)
     
-    def retirerLigne(self, nom):
+    def retirerLigneN(self, nom : str):
         if type(nom) != str:
             raise TypeError("Nom doit être de type str.")
         indexe = self.lignes.index(nom)

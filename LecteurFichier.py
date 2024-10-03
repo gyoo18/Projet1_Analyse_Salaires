@@ -1,5 +1,11 @@
 import Tableau
-from multipledispatch import dispatch
+
+def isfloat(a):
+    try: 
+        float(a)
+        return True
+    except ValueError:
+        return False
 
 def Lire_Tableau_csv( répertoire : str, nom = "" ):
 
@@ -24,6 +30,7 @@ def Lire_Tableau_csv( répertoire : str, nom = "" ):
         mot = ""
         for j in range(len(lignes[i])):
             if lignes[i][j] == ';' or lignes[i][j] == '\n':
+                mot = mot.replace('"','')
                 motsLigne.append(mot)
                 mot = ""
             else:
@@ -80,8 +87,8 @@ def Lire_Tableau_csv( répertoire : str, nom = "" ):
 
     for i in range(len(cases_ordonnées)-1):
         for j in range(len(cases_ordonnées[i])-1):
-            if cases_ordonnées[i+1][j+1].isdigit():
-                tableau.valeurs[i][j] = float(cases_ordonnées[i+1][j+1])
+            if isfloat( cases_ordonnées[i+1][j+1].replace(' ','').replace(',','.') ):
+                tableau.valeurs[i][j] = float(cases_ordonnées[i+1][j+1].replace(' ','').replace(',','.'))
             else:
                 tableau.valeurs[i][j] = cases_ordonnées[i+1][j+1]
 
