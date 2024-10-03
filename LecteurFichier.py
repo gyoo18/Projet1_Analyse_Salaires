@@ -1,7 +1,7 @@
 import Tableau
 from multipledispatch import dispatch
 
-def Lire_Tableau_csv(répertoire : str):
+def Lire_Tableau_csv( répertoire : str, nom = "" ):
 
     #Vérifier la validité des paramètres
     if(type(répertoire) != str):
@@ -72,7 +72,7 @@ def Lire_Tableau_csv(répertoire : str):
             raise TypeError("Cases doit être une liste à 2 dimensions.")
 
     # Transformer en tableau
-    tableau = Tableau.Tableau()
+    tableau = Tableau.Tableau(nom if nom != "" else répertoire)
     for i in range(len(cases_ordonnées)-1):
         tableau.ajouterColonne(cases_ordonnées[i+1][0])
     for i in range(len(cases_ordonnées[0])-1):

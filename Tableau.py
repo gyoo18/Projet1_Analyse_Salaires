@@ -3,9 +3,10 @@ class Tableau:
     valeurs = [[]] # valeurs[x][y], x = > et y = v
     colonnes = []
     lignes = []
+    nom = ""
 
-    def __init__(self):
-        self.valeurs = [[]]
+    def __init__(self, nom : str):
+        self.nom = str(nom)
     
     def ajouterColonne(self,nom : str):
         if type(nom) != str:
