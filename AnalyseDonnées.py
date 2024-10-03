@@ -3,13 +3,13 @@ import math
 
 tableau = LecteurFichier.Lire_Tableau_csv("Données_Stat_Can/Canada.csv","Canada")
 
-tableau.retirerLigneI(16)
-tableau.retirerLigneI(15)
-tableau.retirerLigneI(14)
-tableau.retirerLigneI(4)
-tableau.retirerLigneI(2)
-tableau.retirerLigneI(1)
-tableau.retirerLigneI(0)
+tableau.retirerLigneInt(16)
+tableau.retirerLigneInt(15)
+tableau.retirerLigneInt(14)
+tableau.retirerLigneInt(4)
+tableau.retirerLigneInt(2)
+tableau.retirerLigneInt(1)
+tableau.retirerLigneInt(0)
 
 for x in range(len(tableau.valeurs)-1):
     for y in range(len(tableau.valeurs[x])):
@@ -21,7 +21,7 @@ for x in range(len(tableau.valeurs)-1):
 lenOrigniale = len(tableau.colonnes)
 for i in range(lenOrigniale):
     if not tableau.colonnes[lenOrigniale - i - 1].isdigit():
-        tableau.retirerColonneI(lenOrigniale - i - 1)
+        tableau.retirerColonneInt(lenOrigniale - i - 1)
 
 écart_types = []
 années = []
@@ -34,5 +34,4 @@ for i in range(len(tableau.valeurs)):
     moyenneQuad = math.sqrt(moyenneQuad)
     écart_types.append(moyenneQuad)
     années.append(tableau.colonnes[i])
-print(années)
-print(écart_types)
+
