@@ -22,10 +22,7 @@
 #          //  \\  //                                         | You are entering a danger zone. |
 #         //    \\                                            *---------------------------------*
 
-
-
-
-import Tableau
+from Tableau import Tableau
 
 def isfloat(a):
     try: 
@@ -49,6 +46,7 @@ def Lire_Tableau_csv( répertoire : str, nom = "" ):
         if motsLigne == "":
             break
         lignes.append(motsLigne)
+    fichier.close()
 
     # Transformer en liste 2D
     cases = [[] for i in range(len(lignes))] # cases[y][x] x = > et y = v
@@ -106,7 +104,7 @@ def Lire_Tableau_csv( répertoire : str, nom = "" ):
             raise TypeError("Cases doit être une liste à 2 dimensions.")
 
     # Transformer en tableau
-    tableau = Tableau.Tableau(nom if nom != "" else répertoire)
+    tableau = Tableau(nom if nom != "" else répertoire)
     for i in range(len(cases_ordonnées)-1):
         tableau.ajouterColonne(cases_ordonnées[i+1][0])
     for i in range(len(cases_ordonnées[0])-1):

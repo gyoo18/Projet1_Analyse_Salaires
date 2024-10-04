@@ -1,21 +1,20 @@
 class Tableau:
-    valeurs = []  # valeurs[x][y], la représentation est comme suit : x est croissant vers la gauche (->) et y est croissant vers le bas (v)
-                        #  _                 _
-                        # |  _ _   _ _   _ _  | 0
-                        # | |   | |   | |   | |  
-                        # | | o,| | o,| | o,| | ‖⃦
-                        # | | o,| | o,| | o,| | ‖
-                        # | | o,| | o,| | o,| | V
-                        # | |_ _|,|_ _|,|_ _| |
-                        # |_                 _| Y+ 
-                        #  0 === > X+             
-
-    colonnes = []   # nom des colonnes
-    lignes = []     # nom des lignes
-    nom = ""         # nom du tableau
-
     def __init__(self, nom : str):
         self.nom = str(nom)
+        self.valeurs = []  # valeurs[x][y], la représentation est comme suit : x est croissant vers la gauche (->) et y est croissant vers le bas (v)
+                            #  _                 _
+                            # |  _ _   _ _   _ _  | 0
+                            # | |   | |   | |   | |  
+                            # | | o,| | o,| | o,| | ‖⃦
+                            # | | o,| | o,| | o,| | ‖
+                            # | | o,| | o,| | o,| | V
+                            # | |_ _|,|_ _|,|_ _| |
+                            # |_                 _| Y+ 
+                            #  0 === > X+             
+
+        self.colonnes = []   # nom des colonnes
+        self.lignes = []     # nom des lignes
+        self.nom = ""         # nom du tableau
     
     def ajouterColonne(self,nom : str):
         if type(nom) != str:

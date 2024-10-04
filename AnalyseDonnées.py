@@ -1,7 +1,7 @@
 import LecteurFichier
 import math
 
-tableau = LecteurFichier.Lire_Tableau_csv("Données_Stat_Can/Canada.csv","Canada")
+tableauCanada = LecteurFichier.Lire_Tableau_csv("Données_Stat_Can/Canada.csv","Canada")
 tableauAlberta = LecteurFichier.Lire_Tableau_csv("Données_Stat_Can/Provinces/Alberta.csv","Alberta")
 tableauColombieBritannique = LecteurFichier.Lire_Tableau_csv("Données_Stat_Can/Provinces/Colombie-Britannique.csv","Colombie-Britannique")
 tableauIDPE = LecteurFichier.Lire_Tableau_csv("Données_Stat_Can/Provinces/IDPE.csv","Île-du-Prince-Édouard")
@@ -13,7 +13,7 @@ tableauQuebec = LecteurFichier.Lire_Tableau_csv("Données_Stat_Can/Provinces/Qu�
 tableauSaskatchewan = LecteurFichier.Lire_Tableau_csv("Données_Stat_Can/Provinces/Saskatchewan.csv","Saskatchewan")
 tableauTNetLabrador = LecteurFichier.Lire_Tableau_csv("Données_Stat_Can/Provinces/TN_et_Labrador.csv","Terre-Neuve-et-Labrador")
 
-tableaux = [tableauAlberta, tableauColombieBritannique, tableauIDPE, tableauManitoba, tableauNouveauBrunswick, tableauNouvelleEcosse, tableauOntario, tableauQuebec, tableauSaskatchewan, tableauTNetLabrador]
+tableaux = [tableauCanada, tableauAlberta, tableauColombieBritannique, tableauIDPE, tableauManitoba, tableauNouveauBrunswick, tableauNouvelleEcosse, tableauOntario, tableauQuebec, tableauSaskatchewan, tableauTNetLabrador]
 
 for t in tableaux:
     t.retirerLigneInt(16)
@@ -24,27 +24,27 @@ for t in tableaux:
     t.retirerLigneInt(1)
     t.retirerLigneInt(0)
 
-for x in range(len(tableau.valeurs)-1):
-    for y in range(len(tableau.valeurs[x])):
-        if tableau.valeurs[x+1][y] == "E":
-            tableau.valeurs[x][y] = 0
-        if tableau.valeurs[x][y] == "":
-            tableau.valeurs[x][y] = 0
+for x in range(len(tableauCanada.valeurs)-1):
+    for y in range(len(tableauCanada.valeurs[x])):
+        if tableauCanada.valeurs[x+1][y] == "E":
+            tableauCanada.valeurs[x][y] = 0
+        if tableauCanada.valeurs[x][y] == "":
+            tableauCanada.valeurs[x][y] = 0
 
-lenOrigniale = len(tableau.colonnes)
+lenOrigniale = len(tableauCanada.colonnes)
 for i in range(lenOrigniale):
-    if not tableau.colonnes[lenOrigniale - i - 1].isdigit():
-        tableau.retirerColonneInt(lenOrigniale - i - 1)
+    if not tableauCanada.colonnes[lenOrigniale - i - 1].isdigit():
+        tableauCanada.retirerColonneInt(lenOrigniale - i - 1)
 
 écart_types = []
 années = []
-for i in range(len(tableau.valeurs)):
+for i in range(len(tableauCanada.valeurs)):
     moyenneQuad = 0.0
-    for j in range(len(tableau.valeurs[i])):
-        moyenneQuad += tableau.valeurs[i][j]**2
+    for j in range(len(tableauCanada.valeurs[i])):
+        moyenneQuad += tableauCanada.valeurs[i][j]**2
 
-    moyenneQuad /= len(tableau.valeurs[i])
+    moyenneQuad /= len(tableauCanada.valeurs[i])
     moyenneQuad = math.sqrt(moyenneQuad)
     écart_types.append(moyenneQuad)
-    années.append(tableau.colonnes[i])
+    années.append(tableauCanada.colonnes[i])
 
