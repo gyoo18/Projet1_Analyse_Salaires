@@ -1,10 +1,14 @@
 import AnalyseDonnées
 import matplotlib.pyplot as plt
 
-x = AnalyseDonnées.années
-y= AnalyseDonnées.écart_types
+def main():
+
+    x = AnalyseDonnées.années
+    y = AnalyseDonnées.écart_types
+
+    plt.plot(x, y)
+    plt.show()
 
 
-plt.scatter(x,y)
-plt.show() 
-
+if __name__ == "__main__":
+    main()
