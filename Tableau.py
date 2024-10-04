@@ -1,3 +1,5 @@
+import math
+
 class Tableau:
     def __init__(self, nom : str):
         self.nom = str(nom)
@@ -59,3 +61,17 @@ class Tableau:
         indexe = self.lignes.index(nom)
         self.retirerLigne(indexe)
 
+    def get_ecarts_types(self):
+        ecart_types = []
+        for i in range(len(self.valeurs)):
+            moyenneQuad = 0.0
+            for j in range(len(self.valeurs[i])):
+                moyenneQuad += self.valeurs[i][j] ** 2
+
+            moyenneQuad /= len(self.valeurs[i])
+            moyenneQuad = math.sqrt(moyenneQuad)
+            ecart_types.append(moyenneQuad)
+        return ecart_types
+
+    def get_annees(self):
+        return self.colonnes

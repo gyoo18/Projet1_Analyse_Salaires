@@ -1,12 +1,16 @@
 import AnalyseDonnées
 import matplotlib.pyplot as plt
 
+
 def main():
 
-    x = AnalyseDonnées.années
-    y = AnalyseDonnées.écart_types
+    for t in AnalyseDonnées.tableaux:
 
-    plt.plot(x, y)
+        x = t.get_annees()
+        y = t.get_ecarts_types()
+
+        plt.plot(x, y, label=t.nom)
+
     plt.show()
 
 

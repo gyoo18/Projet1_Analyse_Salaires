@@ -16,6 +16,7 @@ tableauTNetLabrador = LecteurFichier.Lire_Tableau_csv("Données_Stat_Can/Provinc
 tableaux = [tableauCanada, tableauAlberta, tableauColombieBritannique, tableauIDPE, tableauManitoba, tableauNouveauBrunswick, tableauNouvelleEcosse, tableauOntario, tableauQuebec, tableauSaskatchewan, tableauTNetLabrador]
 
 for t in tableaux:
+
     t.retirerLigneInt(16)
     t.retirerLigneInt(15)
     t.retirerLigneInt(14)
@@ -24,27 +25,27 @@ for t in tableaux:
     t.retirerLigneInt(1)
     t.retirerLigneInt(0)
 
-for x in range(len(tableauCanada.valeurs)-1):
-    for y in range(len(tableauCanada.valeurs[x])):
-        if tableauCanada.valeurs[x+1][y] == "E":
-            tableauCanada.valeurs[x][y] = 0
-        if tableauCanada.valeurs[x][y] == "":
-            tableauCanada.valeurs[x][y] = 0
+    for x in range(len(t.valeurs)-1):
+        for y in range(len(t.valeurs[x])):
+            if t.valeurs[x+1][y] == "E":
+                t.valeurs[x][y] = 0
+            if t.valeurs[x][y] == "":
+                t.valeurs[x][y] = 0
 
-lenOrigniale = len(tableauCanada.colonnes)
-for i in range(lenOrigniale):
-    if not tableauCanada.colonnes[lenOrigniale - i - 1].isdigit():
-        tableauCanada.retirerColonneInt(lenOrigniale - i - 1)
+    lenOrigniale = len(t.colonnes)
+    for i in range(lenOrigniale):
+        if not t.colonnes[lenOrigniale - i - 1].isdigit():
+            t.retirerColonneInt(lenOrigniale - i - 1)
 
-écart_types = []
-années = []
-for i in range(len(tableauCanada.valeurs)):
-    moyenneQuad = 0.0
-    for j in range(len(tableauCanada.valeurs[i])):
-        moyenneQuad += tableauCanada.valeurs[i][j]**2
-
-    moyenneQuad /= len(tableauCanada.valeurs[i])
-    moyenneQuad = math.sqrt(moyenneQuad)
-    écart_types.append(moyenneQuad)
-    années.append(tableauCanada.colonnes[i])
+# écart_types = []
+# années = []
+# for i in range(len(tableau.valeurs)):
+#     moyenneQuad = 0.0
+#     for j in range(len(tableau.valeurs[i])):
+#         moyenneQuad += tableau.valeurs[i][j]**2
+#
+#     moyenneQuad /= len(tableau.valeurs[i])
+#     moyenneQuad = math.sqrt(moyenneQuad)
+#     écart_types.append(moyenneQuad)
+#     années.append(tableau.colonnes[i])
 
