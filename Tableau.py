@@ -1,13 +1,14 @@
 class Tableau:
     valeurs = []  # valeurs[x][y], la représentation est comme suit : x est croissant vers la gauche (->) et y est croissant vers le bas (v)
-                        #  |̅                                           ̅ |   0
-                        #  | |̅  ̅ | |̅  ̅ | |̅  ̅ | |̅  ̅ | |̅  ̅ | |̅  ̅ | |̅  ̅ |  |   
-                        #  | | o,| | o,| | o,| | o,| | o,| | o,| | o,|  |   |
-                        #  | | o,| | o,| | o,| | o,| | o,| | o,| | o,|  |   |
-                        #  | | o,| | o,| | o,| | o,| | o,| | o,| | o,|  |   V
-                        #  | |_ _|,|_ _|,|_ _|,|_ _|,|_ _|,|_ _|,|_ _|  |   
-                        #  |_                                          _|   Y+
-                        #      0     ==========> X+
+                        #  _                 _
+                        # |  _ _   _ _   _ _  | 0
+                        # | |   | |   | |   | |  
+                        # | | o,| | o,| | o,| | ‖⃦
+                        # | | o,| | o,| | o,| | ‖
+                        # | | o,| | o,| | o,| | V
+                        # | |_ _|,|_ _|,|_ _| |
+                        # |_                 _| Y+ 
+                        #  0 === > X+             
 
     colonnes = []   # nom des colonnes
     lignes = []     # nom des lignes
