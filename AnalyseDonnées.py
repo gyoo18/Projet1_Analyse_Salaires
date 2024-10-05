@@ -29,11 +29,18 @@ def analyser_tableaux(tableaux : list[Tableau]):
 
         écart_types = Tableau("écart-types")
         écart_types.ajouterColonne("valeurs")
+        moyennes = []
+        for i in range(len(t.valeurs)):
+            moyenne = 0.0
+            for j in range(len(t.valeurs[i])):
+                moyenne += t.valeurs[i][j]
+            moyenne /= len(t.valeurs[i])
+            moyennes.append(moyenne)
+
         for i in range(len(t.valeurs)):
             moyenneQuad = 0.0
             for j in range(len(t.valeurs[i])):
-                moyenneQuad += t.valeurs[i][j]**2
-
+                moyenneQuad += (moyennes[i] - t.valeurs[i][j]) ** 2
             moyenneQuad /= len(t.valeurs[i])
             moyenneQuad = math.sqrt(moyenneQuad)
             écart_types.ajouterLigne(t.colonnes[i])
@@ -41,4 +48,4 @@ def analyser_tableaux(tableaux : list[Tableau]):
         
         tableaux_résultats.append(écart_types)
 
-    return tableaux
+    return tableaux_résultats
