@@ -2,7 +2,7 @@ import LecteurFichier
 from Tableau import Tableau
 import math
 
-def analyser_tableaux(tableaux : list[Tableau]):
+def écart_types_tableaux(tableaux : list[Tableau]):
     tableaux_résultats = []
 
     for t in tableaux:
