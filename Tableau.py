@@ -44,7 +44,7 @@ class Tableau:
     def retirerLigneInt(self, indexe: int):
         if type(indexe) != int:
             raise TypeError("Indexe doit être de type int.")
-        for i in range(len(self.valeurs[0])):
+        for i in range(len(self.valeurs)):
             del self.valeurs[i][indexe]
         del self.lignes[indexe]
 
