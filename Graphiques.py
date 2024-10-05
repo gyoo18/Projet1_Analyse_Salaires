@@ -1,18 +1,14 @@
 import AnalyseDonnées
 import matplotlib.pyplot as plt
+from Tableau import Tableau
 
+def afficher_graphiques(Données : list[Tableau]):
 
-def main():
+    for t in Données:
 
-    for t in AnalyseDonnées.tableaux:
-
-        x = t.get_annees()
-        y = t.get_ecarts_types()
+        x = t.lignes
+        y = t.valeurs[0]
 
         plt.plot(x, y, label=t.nom)
 
     plt.show()
-
-
-if __name__ == "__main__":
-    main()

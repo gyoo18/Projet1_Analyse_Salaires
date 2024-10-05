@@ -8,7 +8,7 @@
             "name": "Python Debugger",
             "type": "debugpy",
             "request": "launch",
-            "program": "Graphiques.py",
+            "program": "Main.py",
             "console": "integratedTerminal"
         }
     ]
