@@ -27,7 +27,7 @@ def analyser_tableaux(tableaux : list[Tableau]):
                 t.retirerColonneInt(lenOrigniale - i - 1)
 
 
-        écart_types = Tableau("écart-types")
+        écart_types = Tableau(t.nom)
         écart_types.ajouterColonne("valeurs")
         moyennes = []
         for i in range(len(t.valeurs)):
