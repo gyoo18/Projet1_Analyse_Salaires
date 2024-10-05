@@ -2,6 +2,7 @@ import LecteurFichier
 from Tableau import Tableau
 import math
 
+
 def analyser_tableaux(tableaux : list[Tableau]):
     tableaux_résultats = []
 
@@ -26,7 +27,6 @@ def analyser_tableaux(tableaux : list[Tableau]):
             if not t.colonnes[lenOrigniale - i - 1].isdigit():
                 t.retirerColonneInt(lenOrigniale - i - 1)
 
-
         écart_types = Tableau("écart-types")
         écart_types.ajouterColonne("valeurs")
         moyennes = []
@@ -49,3 +49,26 @@ def analyser_tableaux(tableaux : list[Tableau]):
         tableaux_résultats.append(écart_types)
 
     return tableaux_résultats
+
+
+def analyser_tableaux2(tableaux: list[Tableau]):
+
+    for t in tableaux:
+        lenLignesOriginal = len(t.lignes)
+        for i in range(lenLignesOriginal):
+            if i not in [15, 16]:
+                t.retirerLigneInt(i)
+
+        for x in range(len(t.valeurs) - 1):
+            for y in range(len(t.valeurs[x])):
+                if t.valeurs[x + 1][y] == "E":
+                    t.valeurs[x][y] = 0
+                if t.valeurs[x][y] == "":
+                    t.valeurs[x][y] = 0
+
+        lenOrigniale = len(t.colonnes)
+        for i in range(lenOrigniale):
+            if not t.colonnes[lenOrigniale - i - 1].isdigit():
+                t.retirerColonneInt(lenOrigniale - i - 1)
+
+    return tableaux
