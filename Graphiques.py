@@ -1,10 +1,11 @@
 import AnalyseDonnées
 import matplotlib.pyplot as plt
+from Tableau import Tableau
 
-def main():
+def afficher_graphiques(Données : Tableau):
 
-    x = AnalyseDonnées.années
-    y = AnalyseDonnées.écart_types
+    x = Données.lignes
+    y = Données.valeurs[0]
 
     plt.plot(x, y)
     plt.show()

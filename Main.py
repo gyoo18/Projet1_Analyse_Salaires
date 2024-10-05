@@ -1,4 +1,6 @@
 import LecteurFichier
+import AnalyseDonnées
+import Graphiques
 
 def main():
     tableauCanada = LecteurFichier.Lire_Tableau_csv("Données_Stat_Can/Canada.csv","Canada")
@@ -15,6 +17,8 @@ def main():
 
     tableaux = [tableauCanada, tableauAlberta, tableauColombieBritannique, tableauIDPE, tableauManitoba, tableauNouveauBrunswick, tableauNouvelleEcosse, tableauOntario, tableauQuebec, tableauSaskatchewan, tableauTNetLabrador]
 
+    résultats = AnalyseDonnées.analyser_tableaux(tableaux)
+    Graphiques.afficher_graphiques(résultats)
 
 
 if __name__ == "__main__":

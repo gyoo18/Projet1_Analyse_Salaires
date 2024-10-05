@@ -26,8 +26,9 @@ def analyser_tableaux(tableaux : list[Tableau]):
         if not tableauCanada.colonnes[lenOrigniale - i - 1].isdigit():
             tableauCanada.retirerColonneInt(lenOrigniale - i - 1)
 
-    écart_types = []
-    années = []
+
+    écart_types = Tableau("écart-types")
+    écart_types.ajouterColonne("valeurs")
     for i in range(len(tableauCanada.valeurs)):
         moyenneQuad = 0.0
         for j in range(len(tableauCanada.valeurs[i])):
@@ -35,6 +36,7 @@ def analyser_tableaux(tableaux : list[Tableau]):
 
         moyenneQuad /= len(tableauCanada.valeurs[i])
         moyenneQuad = math.sqrt(moyenneQuad)
-        écart_types.append(moyenneQuad)
-        années.append(tableauCanada.colonnes[i])
+        écart_types.ajouterLigne(tableauCanada.colonnes[i])
+        écart_types.valeurs[0][len(écart_types.lignes)-1] = moyenneQuad
 
+    return écart_types
