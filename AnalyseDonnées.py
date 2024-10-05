@@ -1,12 +1,15 @@
 import LecteurFichier
 from Tableau import Tableau
+import copy
 import math
 
 
-def analyser_tableaux(tableaux : list[Tableau]):
+
+def écart_types_tableaux(tableaux : list[Tableau]):
     tableaux_résultats = []
 
-    for t in tableaux:
+    for tab in tableaux:
+        t = copy.deepcopy(tab)
         t.retirerLigneInt(16)
         t.retirerLigneInt(15)
         t.retirerLigneInt(14)
@@ -53,16 +56,15 @@ def analyser_tableaux(tableaux : list[Tableau]):
 
 def analyser_tableaux2(tableaux: list[Tableau]):
 
-    for t in tableaux:
+    for tab in tableaux:
+        t = copy.deepcopy(tab)
         lenLignesOriginal = len(t.lignes)
         for i in range(lenLignesOriginal):
             if i not in [15, 16]:
-                t.retirerLigneInt(i)
+                t.retirerLigneInt(lenLignesOriginal - i - 1)
 
         for x in range(len(t.valeurs) - 1):
             for y in range(len(t.valeurs[x])):
-                if t.valeurs[x + 1][y] == "E":
-                    t.valeurs[x][y] = 0
                 if t.valeurs[x][y] == "":
                     t.valeurs[x][y] = 0
 

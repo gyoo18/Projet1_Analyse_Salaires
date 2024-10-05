@@ -17,8 +17,12 @@ def main():
 
     tableaux = [tableauCanada, tableauAlberta, tableauColombieBritannique, tableauIDPE, tableauManitoba, tableauNouveauBrunswick, tableauNouvelleEcosse, tableauOntario, tableauQuebec, tableauSaskatchewan, tableauTNetLabrador]
 
-    résultats = AnalyseDonnées.analyser_tableaux(tableaux)
-    Graphiques.afficher_graphiques(résultats)
+    résultats = AnalyseDonnées.écart_types_tableaux(tableaux)
+    Graphiques.ajouter_graphiques_écart_types(résultats)
+    résultats = AnalyseDonnées.analyser_tableaux2(tableaux)
+    Graphiques.ajouter_graphiques_moyenne(résultats)
+    Graphiques.ajouter_graphiques_médiane(résultats)
+    Graphiques.dessiner_graphiques()
 
 
 if __name__ == "__main__":
