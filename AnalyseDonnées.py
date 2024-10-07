@@ -3,10 +3,9 @@ from Tableau import Tableau
 import copy
 import math
 
-
-
 def écart_types_tableaux(tableaux : list[Tableau]):
     tableaux_résultats = []
+    lignes_revenus_moyen = [5000,15000,25000,35000,45000,55000,65000,75000,90000,1000000]
 
     for tab in tableaux:
         t = copy.deepcopy(tab)
@@ -36,15 +35,13 @@ def écart_types_tableaux(tableaux : list[Tableau]):
         for i in range(len(t.valeurs)):
             moyenne = 0.0
             for j in range(len(t.valeurs[i])):
-                moyenne += t.valeurs[i][j]
-            moyenne /= len(t.valeurs[i])
+                moyenne += t.valeurs[i][j]*lignes_revenus_moyen[j]
             moyennes.append(moyenne)
 
         for i in range(len(t.valeurs)):
             moyenneQuad = 0.0
             for j in range(len(t.valeurs[i])):
-                moyenneQuad += (moyennes[i] - t.valeurs[i][j]) ** 2
-            moyenneQuad /= len(t.valeurs[i])
+                moyenneQuad += (moyennes[i] - lignes_revenus_moyen[j])**2 * t.valeurs[i][j]
             moyenneQuad = math.sqrt(moyenneQuad)
             écart_types.ajouterLigne(t.colonnes[i])
             écart_types.valeurs[0][len(écart_types.lignes)-1] = moyenneQuad
