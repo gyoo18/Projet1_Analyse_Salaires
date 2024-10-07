@@ -55,12 +55,13 @@ def écart_types_tableaux(tableaux : list[Tableau]):
 
 
 def analyser_tableaux2(tableaux: list[Tableau]):
-
+    
+    tableaux_résultats = []
     for tab in tableaux:
         t = copy.deepcopy(tab)
         lenLignesOriginal = len(t.lignes)
         for i in range(lenLignesOriginal):
-            if i not in [15, 16]:
+            if i not in [16-15, 16-16]:
                 t.retirerLigneInt(lenLignesOriginal - i - 1)
 
         for x in range(len(t.valeurs) - 1):
@@ -73,4 +74,9 @@ def analyser_tableaux2(tableaux: list[Tableau]):
             if not t.colonnes[lenOrigniale - i - 1].isdigit():
                 t.retirerColonneInt(lenOrigniale - i - 1)
 
-    return tableaux
+        t.ajouterLigne("Différence entre la moyenne et la médiane")
+        for i in range(len(t.colonnes)):
+            t.valeurs[i][2] = t.valeurs[i][0] - t.valeurs[i][1]
+        tableaux_résultats.append(t)
+
+    return tableaux_résultats

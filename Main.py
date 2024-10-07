@@ -22,6 +22,7 @@ def main():
     résultats = AnalyseDonnées.analyser_tableaux2(tableaux)
     Graphiques.ajouter_graphiques_moyenne(résultats)
     Graphiques.ajouter_graphiques_médiane(résultats)
+    Graphiques.ajouter_graphiques_différence_moyenne_médiane(résultats)
     Graphiques.dessiner_graphiques()
 
 
