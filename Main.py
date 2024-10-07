@@ -19,10 +19,12 @@ def main():
 
     résultats = AnalyseDonnées.écart_types_tableaux(tableaux)
     Graphiques.ajouter_graphiques_écart_types(résultats)
-    résultats = AnalyseDonnées.analyser_tableaux2(tableaux)
+    résultats = AnalyseDonnées.moyenne_médiane_tableaux(tableaux)
     Graphiques.ajouter_graphiques_moyenne(résultats)
     Graphiques.ajouter_graphiques_médiane(résultats)
     Graphiques.ajouter_graphiques_différence_moyenne_médiane(résultats)
+    résultats = AnalyseDonnées.indice_GINI_tableaux(tableaux)
+    Graphiques.ajouter_graphique_GINI(résultats)
     Graphiques.dessiner_graphiques()
 
 
