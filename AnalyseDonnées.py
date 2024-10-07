@@ -37,14 +37,6 @@ def écart_types_tableaux(tableaux : list[Tableau]):
         # Calculer l'écart-type
         écart_types = Tableau(t.nom)    # Tableau contenant les résultats
         écart_types.ajouterColonne("valeurs")
-        # Calculer la moyenne des revenus
-        # moyennes = []
-        # for i in range(len(t.valeurs)):
-        #     moyenne = 0.0
-        #     for j in range(len(t.valeurs[i])):
-        #         moyenne += t.valeurs[i][j]*lignes_revenus_moyen[j]
-        #     moyennes.append(moyenne)
-
         # Calculer l'écart-type
         for i in range(len(t.valeurs)):
             moyenneQuad = 0.0
@@ -87,6 +79,16 @@ def moyenne_médiane_tableaux(tableaux: list[Tableau]):
 
     return tableaux_résultats
 
+def moyenne_médiane_dérivée(tableaux: list[Tableau]):
+    
+    tableaux_résultats = copy.deepcopy(tableaux)
+    for t in range(len(tableaux_résultats)):
+        for i in range(len(tableaux_résultats[t].colonnes)):
+            for j in range(len(tableaux_résultats[t].lignes)):
+                tableaux_résultats[t].valeurs[i][j] = tableaux[t].valeurs[i][j]-tableaux[t].valeurs[max(i-1,0)][j]
+
+    return tableaux_résultats
+
 def indice_GINI_tableaux(tableaux : list[Tableau]):
 
     tableaux_résultats = []
@@ -126,3 +128,35 @@ def indice_GINI_tableaux(tableaux : list[Tableau]):
         
         tableaux_résultats.append(tableau_gini)
     return tableaux_résultats
+
+def indice_GINI_dérivé(tableaux : list[Tableau]):
+    tableaux_résultats = copy.deepcopy(tableaux)
+
+    for t in range(len(tableaux_résultats)):
+        for i in range(len(tableaux_résultats[t].colonnes)):
+            for j in range(len(tableaux_résultats[t].lignes)):
+                tableaux_résultats[t].valeurs[i][j] = tableaux[t].valeurs[i][j] - tableaux[t].valeurs[i][max(j-1,0)]
+    return tableaux_résultats
+
+def corrélation_gouvernement_moyenne(données_canada : Tableau, gouvernement : Tableau, vertical : bool):
+    tableau_résultat = Tableau("Corrélation " + données_canada.nom + " et le type de gouvernement")
+    tableau_résultat.ajouterColonne("Libéraux")
+    tableau_résultat.ajouterColonne("Conservateurs")
+    types_données = len(données_canada.colonnes) if vertical else len(données_canada.lignes)
+    for i in range(types_données):
+        tableau_résultat.ajouterLigne(données_canada.colonnes[i] if vertical else données_canada.lignes[i])
+        moyenne_libérale = 0
+        n_L = 0
+        moyenne_conservatrice = 0
+        n_C = 0
+        for j in range(len(gouvernement.lignes)):
+            if gouvernement.valeurs[0][j] == "L":
+                moyenne_libérale += données_canada.valeurs[i][j] if vertical else données_canada.valeurs[j][i]
+                n_L += 1
+            elif gouvernement.valeurs[0][j] == "C":
+                moyenne_conservatrice += données_canada.valeurs[i][j] if vertical else données_canada.valeurs[j][i]
+                n_C += 1
+        tableau_résultat.valeurs[0][i] = moyenne_libérale/n_L
+        tableau_résultat.valeurs[1][i] = moyenne_conservatrice/n_C
+
+    return tableau_résultat
