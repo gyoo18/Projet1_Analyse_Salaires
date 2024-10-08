@@ -31,13 +31,14 @@ def isfloat(a):
     except ValueError:
         return False
 
-def Lire_Tableau_csv( répertoire : str, nom = "" ):
+def Lire_Tableau_csv( répertoire : str, nom_de_lignes : bool, séparateur = ";", nom = ""):
 
     #Vérifier la validité des paramètres
     if(type(répertoire) != str):
         raise TypeError("Répertoire doit être un string.")
     
     # Extraire le fichier
+    print("Ouverture du fichier " + répertoire)
     fichier = open(répertoire,"r")
     lignes = []
     lire = True
@@ -49,12 +50,13 @@ def Lire_Tableau_csv( répertoire : str, nom = "" ):
     fichier.close()
 
     # Transformer en liste 2D
+    print("Extraction des données")
     cases = [[] for i in range(len(lignes))] # cases[y][x] x = > et y = v
     for i in range(len(lignes)):
         motsLigne = []
         mot = ""
         for j in range(len(lignes[i])):
-            if lignes[i][j] == ';' or lignes[i][j] == '\n':
+            if lignes[i][j] == séparateur or lignes[i][j] == '\n':
                 mot = mot.replace('"','')
                 motsLigne.append(mot)
                 mot = ""
@@ -68,6 +70,7 @@ def Lire_Tableau_csv( répertoire : str, nom = "" ):
     # Dans notre cas, le tableau sera le plus long rectangle de cases dont la première ligne est entièrement pleine (c'est l'en-tête du tableau)
 
     # Trouver la ligne contigue la plus longue
+    print("Extraction du tableau")
     longeur_max = 0
     indexe_max = 0
     for i in range(len(cases)):
@@ -104,17 +107,25 @@ def Lire_Tableau_csv( répertoire : str, nom = "" ):
             raise TypeError("Cases doit être une liste à 2 dimensions.")
 
     # Transformer en tableau
+    print("Préparation pour l'utilisation")
     tableau = Tableau(nom if nom != "" else répertoire)
-    for i in range(len(cases_ordonnées)-1):
-        tableau.ajouterColonne(cases_ordonnées[i+1][0])
-    for i in range(len(cases_ordonnées[0])-1):
-        tableau.ajouterLigne(cases_ordonnées[0][i+1])
-
-    for i in range(len(cases_ordonnées)-1):
-        for j in range(len(cases_ordonnées[i])-1):
-            if isfloat( cases_ordonnées[i+1][j+1].replace(' ','').replace(',','.') ):
-                tableau.valeurs[i][j] = float(cases_ordonnées[i+1][j+1].replace(' ','').replace(',','.'))
+    
+    tmpi = 1 if nom_de_lignes else 0
+    
+    for i in range(len(cases_ordonnées)-tmpi):
+        tableau.ajouterColonne(cases_ordonnées[i+tmpi][0])
+    if nom_de_lignes:
+        for i in range(len(cases_ordonnées[0])-1):
+            tableau.ajouterLigne(cases_ordonnées[0][i+1])
+    else:
+        for i in range(len(cases_ordonnées[0])-1):
+            tableau.ajouterLigne(str(i))
+        
+    for i in range(len(tableau.colonnes)-tmpi):
+        for j in range(len(tableau.lignes) - 1):
+            if isfloat( cases_ordonnées[i+tmpi][j+1].replace(' ','').replace(',','.') ):
+                tableau.valeurs[i][j] = float(cases_ordonnées[i+tmpi][j+1].replace(' ','').replace(',','.'))
             else:
-                tableau.valeurs[i][j] = cases_ordonnées[i+1][j+1]
+                tableau.valeurs[i][j] = cases_ordonnées[i+tmpi][j+1]
 
     return tableau

@@ -170,6 +170,11 @@ def ajouter_corrélation_gouvernement(Données : Tableau):
         plt.title(Données.nom + ", " + Données.lignes[i])
         plt.figure()
 
+def ajouter_nuage_point(Données : Tableau):
+    plt.plot(Données.lignes,Données.valeurs[0],'o')
+    plt.title(Données.nom)
+    plt.xticks(rotation=45)
+    plt.figure()
 
 def dessiner_graphiques() -> None:
     plt.show()

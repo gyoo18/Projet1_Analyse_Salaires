@@ -160,3 +160,18 @@ def corrélation_gouvernement_moyenne(données_canada : Tableau, gouvernement : 
         tableau_résultat.valeurs[1][i] = moyenne_conservatrice/n_C
 
     return tableau_résultat
+
+def corrélation_colonne_x_étudiants(i_colonne : int, tableau : Tableau):
+    print("Extraction de la colonne", i_colonne, tableau.colonnes[i_colonne])
+    tableau_résultat = copy.deepcopy(tableau)
+    tableau_résultat.nom = "notes en fonction de " + tableau_résultat.colonnes[i_colonne]
+    n_colonnes = len(tableau_résultat.colonnes)-1
+    for i in range(len(tableau_résultat.colonnes)-1):
+        if n_colonnes - i - 1 != i_colonne:
+            tableau_résultat.retirerColonneInt(n_colonnes - i - 1)
+    
+    tableau_résultat.lignes = tableau_résultat.valeurs[0]
+    tableau_résultat.valeurs[0] = tableau_résultat.valeurs[1]
+    tableau_résultat.retirerColonneInt(1)
+    
+    return tableau_résultat
