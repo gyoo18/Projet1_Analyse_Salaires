@@ -175,3 +175,86 @@ def corrélation_colonne_x_étudiants(i_colonne : int, tableau : Tableau):
     tableau_résultat.retirerColonneInt(1)
     
     return tableau_résultat
+
+class Méthode_Nettoyage:
+    IGNORER = 0
+    INTERPOLER_LINÉAIRE = 1
+    MOYENNE = 2
+    MÉDIANE = 3
+    MODE = 4
+
+    def __nom_méthode__(méthode : int):
+        match méthode:
+            case 0:
+                return "INGORER"
+            case 1:
+                return "INTERPOLER_LINÉAIRE"
+            case 2:
+                return "MOYENNE"
+            case 3:
+                return "MÉDIANE"
+            case 4:
+                return "MODE"
+
+def nettoyer_données(Données : Tableau, méthode : int):
+    print("Nettoyage de",Données.nom,"par la méthode",Méthode_Nettoyage.__nom_méthode__(méthode))
+    moyenne = 0
+    mode = 0
+    médiane = 0
+
+    if méthode == 2:
+        print("calcul de la moyenne")
+        for i in range(len(Données.lignes)):
+            moyenne += Données.valeurs[0][i]
+        moyenne /= len(Données.lignes)
+
+    if méthode == 3:
+        print("calcul de la médiane")
+        if len(Données.lignes)%2 == 0:
+            médiane = ( Données.valeurs[0][ int(len(Données.lignes) / 2) ] + Données.valeurs[0][ int(len(Données.lignes) / 2) + 1 ] ) / 2
+        else:
+            médiane = Données.valeurs[0][ int(len(Données.lignes) / 2) ]
+    
+    if méthode == 4:
+        print("calcul du mode")
+        instance = []
+        nombre_apparition = []
+        for i in range(len(Données.lignes)):
+            if Données.valeurs[0][i] in instance:
+                nombre_apparition[ instance.index( Données.valeurs[0][i] ) ] += 1
+            else:
+                instance.append(Données.valeurs[0][1])
+                nombre_apparition.append(1)
+        
+        objet = 0
+        max_aparitions = 0
+        for i in range(len(instance)):
+            if nombre_apparition[i] > max_aparitions:
+                max_aparitions = nombre_apparition[i]
+                objet = instance[i]
+        
+        mode = objet
+
+    print("néttoyage")
+    n = len(Données.lignes)-1
+    for i in range(len(Données.lignes)):
+        match méthode:
+            case 0:
+                if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
+                    Données.retirerLigneInt(n-i)
+            case 1:
+                if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
+                    m = ( Données.valeurs[0][n-i-1] - Données.valeurs[0][n-i+1] ) / ( float(Données.lignes[n-i-1]) - float(Données.lignes[n-i+1]) )
+                    b = Données.valeurs[0][n-i-1] - ( m*float(Données.lignes[n-i-1]) )
+                    Données.valeurs[0][n-i] = float(Données.lignes[n-i])*m + b
+            case 2:
+                if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
+                    Données.valeurs[0][n-i] = moyenne
+            case 3:
+                if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
+                    Données.valeurs[0][n-i] = médiane
+            case 4:
+                if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
+                    Données.valeurs[0][n-i] = mode
+
+    return Données

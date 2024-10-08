@@ -121,8 +121,8 @@ def Lire_Tableau_csv( répertoire : str, nom_de_lignes : bool, séparateur = ";"
         for i in range(len(cases_ordonnées[0])-1):
             tableau.ajouterLigne(str(i))
         
-    for i in range(len(tableau.colonnes)-tmpi):
-        for j in range(len(tableau.lignes) - 1):
+    for i in range(len(cases_ordonnées)-tmpi):
+        for j in range(len(cases_ordonnées[0]) - 1):
             if isfloat( cases_ordonnées[i+tmpi][j+1].replace(' ','').replace(',','.') ):
                 tableau.valeurs[i][j] = float(cases_ordonnées[i+tmpi][j+1].replace(' ','').replace(',','.'))
             else:
