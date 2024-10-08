@@ -171,9 +171,20 @@ def ajouter_corrélation_gouvernement(Données : Tableau):
         plt.figure()
 
 def ajouter_nuage_point(Données : Tableau):
+    print("Afficher",Données.nom)
     plt.plot(Données.lignes,Données.valeurs[0],'o')
     plt.title(Données.nom)
     plt.xticks(rotation=45)
+    plt.grid()
+    plt.figure()
+
+def ajouter_histogramme(Données : Tableau):
+    print("Afficher",Données.nom)
+    plt.bar(Données.lignes,Données.valeurs[0])
+    plt.title(Données.nom)
+    plt.xticks(rotation=45)
+    plt.gca().set_ylim(ymin = 50)
+    plt.grid()
     plt.figure()
 
 def dessiner_graphiques() -> None:

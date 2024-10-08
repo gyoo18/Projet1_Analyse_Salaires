@@ -7,10 +7,12 @@ def main():
 
     for i in range(len(tableau.colonnes)-1):
         résultats = AnalyseDonnées.corrélation_colonne_x_étudiants(i,tableau)
-        #if i == 17:
-        #    print("Hey")
         AnalyseDonnées.nettoyer_données(résultats,AnalyseDonnées.Méthode_Nettoyage.IGNORER)
-        Graphiques.ajouter_nuage_point(résultats)
+        if i in [2,3,4,7,8,10,11,12,13,14,15,16,17,18]:
+            AnalyseDonnées.transformer_en_histogramme(résultats,AnalyseDonnées.Méthode_Transformation_Histogramme.MOYENNE)
+            Graphiques.ajouter_histogramme(résultats)
+        else:
+            Graphiques.ajouter_nuage_point(résultats)
     print("Affichage des graphiques")
     Graphiques.dessiner_graphiques()
 

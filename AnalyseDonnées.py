@@ -239,22 +239,40 @@ def nettoyer_données(Données : Tableau, méthode : int):
     n = len(Données.lignes)-1
     for i in range(len(Données.lignes)):
         match méthode:
-            case 0:
+            case Méthode_Nettoyage.IGNORER:
                 if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
                     Données.retirerLigneInt(n-i)
-            case 1:
+            case Méthode_Nettoyage.INTERPOLER_LINÉAIRE:
                 if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
                     m = ( Données.valeurs[0][n-i-1] - Données.valeurs[0][n-i+1] ) / ( float(Données.lignes[n-i-1]) - float(Données.lignes[n-i+1]) )
                     b = Données.valeurs[0][n-i-1] - ( m*float(Données.lignes[n-i-1]) )
                     Données.valeurs[0][n-i] = float(Données.lignes[n-i])*m + b
-            case 2:
+            case Méthode_Nettoyage.MOYENNE:
                 if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
                     Données.valeurs[0][n-i] = moyenne
-            case 3:
+            case Méthode_Nettoyage.MÉDIANE:
                 if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
                     Données.valeurs[0][n-i] = médiane
-            case 4:
+            case Méthode_Nettoyage.MODE:
                 if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
                     Données.valeurs[0][n-i] = mode
 
     return Données
+
+class Méthode_Transformation_Histogramme:
+    MOYENNE = 0
+
+def transformer_en_histogramme(Données : Tableau, méthode : int):
+    print("Transformation de",Données.nom,"en histogramme")
+    match méthode:
+        case Méthode_Transformation_Histogramme.MOYENNE:
+            catégories = list(set(Données.lignes))
+            cumul = [0 for i in range(len(catégories))]
+            n_catégories = [0 for i in range(len(catégories))]
+            for i in range(len(Données.lignes)):
+                cumul[catégories.index(Données.lignes[i])] += Données.valeurs[0][i]
+                n_catégories[catégories.index(Données.lignes[i])] += 1
+            for i in range(len(cumul)):
+                cumul[i] /= n_catégories[i]
+    Données.lignes = catégories
+    Données.valeurs[0] = cumul
