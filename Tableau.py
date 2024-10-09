@@ -22,7 +22,7 @@ class Tableau:
             raise TypeError("Nom doit être de type str.")
 
         if len(self.valeurs) > 0:
-            self.valeurs.append([] * len(self.valeurs[0]))
+            self.valeurs.append([ 0 for i in range(len(self.valeurs[0])) ])
         else:
             self.valeurs.append([])
 

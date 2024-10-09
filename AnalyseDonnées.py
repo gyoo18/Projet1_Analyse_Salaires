@@ -235,26 +235,29 @@ def nettoyer_données(Données : Tableau, méthode : int):
         
         mode = objet
 
-    print("néttoyage")
+    print("nettoyage")
     n = len(Données.lignes)-1
     for i in range(len(Données.lignes)):
+        à_nettoyer = ( Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " "  # Possède un valeur invalide
+                      or Données.valeurs[0][n-i] > 100 or Données.valeurs[0][n-i] < 0   # Possède une valeur aberrante
+                      or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " ")   # Possède une valeur invalide
         match méthode:
             case Méthode_Nettoyage.IGNORER:
-                if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
+                if à_nettoyer:
                     Données.retirerLigneInt(n-i)
             case Méthode_Nettoyage.INTERPOLER_LINÉAIRE:
-                if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
+                if à_nettoyer:
                     m = ( Données.valeurs[0][n-i-1] - Données.valeurs[0][n-i+1] ) / ( float(Données.lignes[n-i-1]) - float(Données.lignes[n-i+1]) )
                     b = Données.valeurs[0][n-i-1] - ( m*float(Données.lignes[n-i-1]) )
                     Données.valeurs[0][n-i] = float(Données.lignes[n-i])*m + b
             case Méthode_Nettoyage.MOYENNE:
-                if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
+                if à_nettoyer:
                     Données.valeurs[0][n-i] = moyenne
             case Méthode_Nettoyage.MÉDIANE:
-                if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
+                if à_nettoyer:
                     Données.valeurs[0][n-i] = médiane
             case Méthode_Nettoyage.MODE:
-                if Données.valeurs[0][n-i] == "" or Données.valeurs[0][n-i] == 0 or Données.valeurs[0][n-i] == " " or Données.lignes[n-i] == "" or Données.lignes[n-i] == 0 or Données.lignes[n-i] == " " :
+                if à_nettoyer:
                     Données.valeurs[0][n-i] = mode
 
     return Données
@@ -269,10 +272,21 @@ def transformer_en_histogramme(Données : Tableau, méthode : int):
             catégories = list(set(Données.lignes))
             cumul = [0 for i in range(len(catégories))]
             n_catégories = [0 for i in range(len(catégories))]
+            min_catégorie = [1000 for i in range(len(catégories))]
+            max_catégorie = [0 for i in range(len(catégories))]
             for i in range(len(Données.lignes)):
                 cumul[catégories.index(Données.lignes[i])] += Données.valeurs[0][i]
                 n_catégories[catégories.index(Données.lignes[i])] += 1
+                if Données.valeurs[0][i] < min_catégorie[catégories.index(Données.lignes[i])]:
+                    min_catégorie[catégories.index(Données.lignes[i])] = Données.valeurs[0][i]
+                if Données.valeurs[0][i] > max_catégorie[catégories.index(Données.lignes[i])]:
+                    max_catégorie[catégories.index(Données.lignes[i])] = Données.valeurs[0][i]
             for i in range(len(cumul)):
                 cumul[i] /= n_catégories[i]
-    Données.lignes = catégories
-    Données.valeurs[0] = cumul
+            Données.lignes = catégories
+            Données.valeurs[0] = cumul
+            Données.ajouterColonne("min")
+            Données.ajouterColonne("max")
+            for i in range(len(Données.lignes)):
+                Données.valeurs[1][i] = min_catégorie[i]
+                Données.valeurs[2][i] = max_catégorie[i]

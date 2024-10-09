@@ -181,6 +181,14 @@ def ajouter_nuage_point(Données : Tableau):
 def ajouter_histogramme(Données : Tableau):
     print("Afficher",Données.nom)
     plt.bar(Données.lignes,Données.valeurs[0])
+
+    milieu = [0 for i in range(len(Données.lignes))]
+    largeur = [0 for i in range(len(Données.lignes))]
+    for i in range(len(milieu)):
+        milieu[i] = (Données.valeurs[1][i] + Données.valeurs[2][i])/2
+        largeur[i] = (Données.valeurs[2][i] - Données.valeurs[1][i])/2
+    plt.errorbar(Données.lignes,milieu,yerr = largeur,fmt = "o", color = "red")
+
     plt.title(Données.nom)
     plt.xticks(rotation=45)
     plt.gca().set_ylim(ymin = 50)
