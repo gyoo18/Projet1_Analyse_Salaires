@@ -23,6 +23,8 @@
 #         //    \\                                            *---------------------------------*
 
 from Tableau import Tableau
+import pandas as pd
+from pandas import DataFrame
 
 def isfloat(a):
     try: 
@@ -31,12 +33,14 @@ def isfloat(a):
     except ValueError:
         return False
 
-def Lire_Tableau_csv( répertoire : str, nom_de_lignes : bool, séparateur = ";", nom = ""):
+def Lire_Tableau_csv( répertoire : str, nom = ""):
 
     #Vérifier la validité des paramètres
     if(type(répertoire) != str):
         raise TypeError("Répertoire doit être un string.")
     
+    return Tableau(répertoire if nom == "" else nom, pd.read_csv("archive/StudentPerformanceFactors.csv"))
+    '''
     # Extraire le fichier
     print("Ouverture du fichier " + répertoire)
     fichier = open(répertoire,"r")
@@ -129,3 +133,4 @@ def Lire_Tableau_csv( répertoire : str, nom_de_lignes : bool, séparateur = ";"
                 tableau.valeurs[i][j] = cases_ordonnées[i+tmpi][j+1]
 
     return tableau
+    '''
