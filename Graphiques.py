@@ -178,7 +178,7 @@ def ajouter_nuage_point(Données : Tableau):
     plt.grid()
     plt.figure()
 
-def ajouter_histogramme(Données : Tableau):
+def ajouter_diagramme_à_bandes(Données : Tableau):
     print("Afficher",Données.nom)
     plt.bar(Données.lignes,Données.valeurs[0])
 
@@ -194,6 +194,8 @@ def ajouter_histogramme(Données : Tableau):
     plt.gca().set_ylim(ymin = 50)
     plt.grid()
     plt.figure()
+
+
 
 def dessiner_graphiques() -> None:
     plt.show()
