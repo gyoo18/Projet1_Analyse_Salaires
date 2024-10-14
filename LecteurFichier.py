@@ -39,6 +39,7 @@ def Lire_Tableau_csv( répertoire : str, nom = ""):
     if(type(répertoire) != str):
         raise TypeError("Répertoire doit être un string.")
     
+    print("Chargement du fichier",répertoire)
     return Tableau(répertoire if nom == "" else nom, pd.read_csv("archive/StudentPerformanceFactors.csv"))
     '''
     # Extraire le fichier

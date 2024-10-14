@@ -51,14 +51,18 @@ def nettoyer_données(Données : Tableau, méthode : int):
     match méthode:
         case Méthode_Nettoyage.IGNORER:
             Données.df.dropna(axis = 0, inplace= True)
+            Données.df.drop(Données.df[Données.df['Exam_Score'] > 100].index, inplace=True)
         case Méthode_Nettoyage.INTERPOLATION:
-            Données.df.interpolate(method="linear")
+            Données.df.interpolate(method="linear",inplace=True)
         case Méthode_Nettoyage.MOYENNE:
             Données.df.fillna(Données.df.mean(), inplace=True)
+            Données.df.loc[Données.df[Données.df.columns[0]] > 100, Données.df.columns[0]] = Données.df.mean()
         case Méthode_Nettoyage.MÉDIANE:
             Données.df.fillna(Données.df.median(), inplace=True)
+            Données.df.loc[Données.df[Données.df.columns[0]] > 100, Données.df.columns[0]] = Données.df.median()
         case Méthode_Nettoyage.MODE:
             Données.df.fillna(Données.df.mode(), inplace=True)
+            Données.df.loc[Données.df[Données.df.columns[0]] > 100, Données.df.columns[0]] = Données.df.mode()
 
     return Données
     
@@ -174,3 +178,17 @@ def transformer_en_histogramme(Données : Tableau, méthode : int):
                 Données.valeurs[1][i] = min_catégorie[i]
                 Données.valeurs[2][i] = max_catégorie[i]
     '''
+
+def transformer_qualitatif_en_quantitatif(tableau : Tableau, correspondances : list[tuple]):
+    print("Transformation des données qualitative en quantitatif de",tableau.nom)
+    tr = copy.deepcopy(tableau)
+
+    for i in range(len(correspondances)):
+        for j in range(len(tr.df.columns)):
+            tr.df.loc[tr.df[tr.df.columns[j]] == correspondances[i][0], tr.df.columns[j]] = correspondances[i][1]
+    
+    return tr
+
+def générer_carte_corrélation(tableau : Tableau):
+    print("génération de la carte de corrélation de",tableau.nom)
+    return Tableau(tableau.nom, tableau.df.corr())
