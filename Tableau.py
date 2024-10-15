@@ -7,3 +7,6 @@ class Tableau:
     def __init__(self, nom: str, data_frame : DataFrame):
         self.nom = nom
         self.df = data_frame
+    
+    def ajouter_régression(self, reglin):
+        self.régression_linéaire = reglin

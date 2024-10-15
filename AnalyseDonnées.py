@@ -4,11 +4,13 @@ import copy
 import math
 import pandas as pd
 from pandas import DataFrame
+import numpy as np
+from scipy import stats
 
 def extraire_colonne_étudiants(i_colonne : int, tableau : Tableau):
     print("Extraction de la colonne", i_colonne, tableau.df.columns[i_colonne])
 
-    return Tableau(tableau.df.columns[i_colonne],tableau.df.iloc[:,[i_colonne,-1]])
+    return Tableau(tableau.df.columns[-1] + " en fonction de " + tableau.df.columns[i_colonne],tableau.df.iloc[:,[i_colonne,-1]])
 
     '''
     tableau_résultat = copy.deepcopy(tableau)
@@ -191,4 +193,9 @@ def transformer_qualitatif_en_quantitatif(tableau : Tableau, correspondances : l
 
 def générer_carte_corrélation(tableau : Tableau):
     print("génération de la carte de corrélation de",tableau.nom)
-    return Tableau(tableau.nom, tableau.df.corr())
+    return Tableau("Corrélation entre les éléments de " + tableau.nom, tableau.df.corr())
+
+def régression_linéaire(tableau : Tableau):
+    X = tableau.df.to_numpy()[:,0]
+    Y = tableau.df.to_numpy()[:,1]
+    tableau.ajouter_régression( stats.linregress(X,Y) )
