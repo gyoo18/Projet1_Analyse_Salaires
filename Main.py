@@ -46,8 +46,13 @@ def main():
         if i in [2,3,4,7,8,10,11,12,13,15,16,17,18]:
             Graphiques.ajouter_boîtes_à_moustaches(résultats)
             résultats2 = AnalyseDonnées.transformer_en_histogramme(résultats,AnalyseDonnées.Méthode_Transformation_Histogramme.MOYENNE)
-            #Graphiques.ajouter_diagramme_à_bandes(résultats2)
+            Graphiques.ajouter_diagramme_à_bandes(résultats2)
             #Graphiques.ajouter_diagramme_à_bandes_et_moustaches(résultats2,résultats)
+        elif i in [9,14]:
+            AnalyseDonnées.régression_linéaire(résultats)
+            Graphiques.ajouter_nuage_point(résultats)
+            résultats2 = AnalyseDonnées.transformer_en_histogramme(résultats,AnalyseDonnées.Méthode_Transformation_Histogramme.MOYENNE)
+            Graphiques.ajouter_diagramme_à_bandes(résultats2)
         else:
             AnalyseDonnées.régression_linéaire(résultats)
             Graphiques.ajouter_nuage_point(résultats)
