@@ -43,11 +43,11 @@ def main():
     for i in range(len(tableau.df.columns)-1):
         résultats = AnalyseDonnées.extraire_colonne_étudiants(i,tableau)
         AnalyseDonnées.nettoyer_données(résultats,AnalyseDonnées.Méthode_Nettoyage.IGNORER)
-        if i in [2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18]:
-            #Graphiques.ajouter_boîtes_à_moustaches(résultats)
+        if i in [2,3,4,7,8,10,11,12,13,15,16,17,18]:
+            Graphiques.ajouter_boîtes_à_moustaches(résultats)
             résultats2 = AnalyseDonnées.transformer_en_histogramme(résultats,AnalyseDonnées.Méthode_Transformation_Histogramme.MOYENNE)
             #Graphiques.ajouter_diagramme_à_bandes(résultats2)
-            Graphiques.ajouter_diagramme_à_bandes_et_moustaches(résultats2,résultats)
+            #Graphiques.ajouter_diagramme_à_bandes_et_moustaches(résultats2,résultats)
         else:
             AnalyseDonnées.régression_linéaire(résultats)
             Graphiques.ajouter_nuage_point(résultats)
